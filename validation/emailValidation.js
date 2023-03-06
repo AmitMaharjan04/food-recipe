@@ -17,13 +17,14 @@ const newAccount= async (req) =>{
         // }
         return valid;
 };
-const exisitingAccount= async(req)=>{
+const existingAccount= async(req)=>{
     test=0;
+    const {email, password} =req.body;
     users=[
        [ "amit@gmail.com" ,"qwe"],
        [ "maharjan@gmail.com", "asd"]
     ]
-            for(i=0;i<users.length;i++){
+      for(i=0;i<users.length;i++){
                 if(test==0){
                 // console.log("if")
                 // console.log(users[i][0])
@@ -36,11 +37,10 @@ const exisitingAccount= async(req)=>{
                 }
             }
         return test;
-        
-          
-}
+};
+
 exports.newAccount = newAccount;
-exports.exisitingAccount = exisitingAccount;
+exports.existingAccount = existingAccount;
 // ((emailValidation)=>{
 //     // module.exports= async (req)=>{
 //         emailValidation.newAccount=async (req)=>{

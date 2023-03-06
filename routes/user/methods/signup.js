@@ -4,11 +4,14 @@ const hasher=require("../../../validation/hashing");
     module.exports = async(req,res)=>{
       //  emailValidation(req);
         const {name,email,password} = req.body
-        let test=emailValidation.newAccount(req);
+        let test= await emailValidation.newAccount(req);
         if(!test==false){
           console.log(name,email,password);
           console.log("correct");
+          
         const salt= await hasher.createSalt();
+        // const salt= hasher.haha();
+        // console.log(salt);
         const hashed=await hasher.computeHash(password.toString(),salt);
         console.log(hashed);
         }
