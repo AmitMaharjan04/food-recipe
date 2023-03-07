@@ -6,7 +6,12 @@
         return a-b
     };
 })(module.exports);
-
+// let date_time = new Date()
+// console.log(date_time);
+const moment = require('moment');
+let date = moment();
+date =date.format("YYYY-MM-DD HH:mm:ss");
+console.log(date);
 // module.exports = {
 //     sum : function(a,b){
 //         return a+b;

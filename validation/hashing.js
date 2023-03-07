@@ -1,10 +1,6 @@
 ((hashOperator)=>{
     const bcrypt = require('bcryptjs');
     module.exports ={
-        haha : function(){
-        const a="haha"
-        return a;
-        },
      computeHash :function (sourcePassword,salt){
         return bcrypt.hash(sourcePassword,salt)
     },

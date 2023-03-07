@@ -6,11 +6,6 @@ dotenv.config({
 });
 module.exports={
   "development": {
-  //   "username": "root",
-  //   "password": null,
-  //   "database": "food_recipe",
-  //   "host": "127.0.0.1",
-  //   "dialect": "mysql"
     username:process.env.MYSQL_DB_USER,
     host:process.env.MYSQL_DB_HOST,
     port:process.env.MYSQL_DB_PORT,

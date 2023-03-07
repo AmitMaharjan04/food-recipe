@@ -18,21 +18,37 @@ const newAccount= async (req) =>{
         return valid;
 };
 const existingAccount= async(req)=>{
-    test=0;
+    const hasher=require('../validation/hashing');
+    const sql=require('./mysqlHelper');
+    let test=0;
     const {email, password} =req.body;
-    users=[
-       [ "amit@gmail.com" ,"qwe"],
-       [ "maharjan@gmail.com", "asd"]
-    ]
-      for(i=0;i<users.length;i++){
+    
+    // users=[
+    //    [ "amit@gmail.com" ,"qwe"],
+    //    [ "maharjan@gmail.com", "asd"]
+    // ]
+    const output=await sql.query(`select email,password from logins` );
+    // console.log(output.length);
+    // console.log(output);
+    const salt= await hasher.createSalt();
+        const hashed=await hasher.computeHash(password.toString(),salt);
+      for(i=0;i<output.length;i++){
+        const emailCheck=output[i][i].email;
+        console.log(emailCheck)
                 if(test==0){
-                // console.log("if")
                 // console.log(users[i][0])
                 // console.log(users[i][1])
-                    if(email==users[i][0] && password==users[i][1]){
-                        console.log(users[i][0])
-                        console.log(users[i][1])
-                        test=1;
+                console.log("here")
+                    if(email==emailCheck){
+                        let hpassword=output[i][i].password;
+                        console.log(hpassword)
+                        const hashPassword=hasher.comparePassword(hashed,hpassword);
+                        if(hashPassword==true){
+                            test=2;
+                            console.log("welcome")
+                        }else{
+                            console.log("wrong hash")
+                        }
                     }
                 }
             }
