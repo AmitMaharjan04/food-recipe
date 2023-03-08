@@ -6,7 +6,6 @@ require('dotenv').config();
 const port=3000;
 const app=express();
 
-// const signup=require("./routes/user/methods/signup")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -23,10 +22,6 @@ app.use("/api",routes)
 //       .json({ message: "You need to be logged in to access this resource" });
 //   });
 
-// app.post('/sign', (req,res)=>{
-//     console.log("here")
-//     signup(req);
-// })
 app.listen(port, ()=>{
     mysqlHelper.init();
     console.log(`listening to port ${port}`);

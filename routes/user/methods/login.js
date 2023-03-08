@@ -9,7 +9,9 @@ const express = require("express");
         if(test==0){
             console.log("Incorrect email or password")
         }else {
-            await res.redirect('http://127.0.0.1:3000/api/user/create');
+            // await res.redirect('http://127.0.0.1:3000/api/user/create');
+            console.log("loggedin");
+            
         }
     }
 })()
