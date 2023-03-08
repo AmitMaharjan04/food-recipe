@@ -1,24 +1,15 @@
 const login=require("../../../validation/emailValidation");
 const sqlHelper=require("../../../validation/mysqlHelper");
-
+const express = require("express");
+    const router = express.Router();
+    const loggedUserController = require("../loggeduser/index");
 (()=>{
-    module.exports= async (req)=>{
-        // let obj="";
-        // const output="";
-        // output=await sql.mysqlHelper.query("Select * from logins");
-        // console.log("after sql");
-        // console.log (output);
-        // obj=output[0][0];
-        // console.log(obj)
-        // return obj;
-
-        // const test=await sqlHelper.query("select * from logins where id=1");
-        // console.log(test);
+    module.exports= async (req,res,next)=>{
         let test=await login.existingAccount(req);
-        console.log(test)
-        // if(test==1)
-        // console.log(`welcome ${email}`);
-        // else
-        // console.log("incorrect email or password")
+        if(test==0){
+            console.log("Incorrect email or password")
+        }else {
+            await res.redirect('http://127.0.0.1:3000/api/user/create');
+        }
     }
 })()

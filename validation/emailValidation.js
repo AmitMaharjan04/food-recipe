@@ -23,27 +23,42 @@ const existingAccount= async(req)=>{
     let test=0;
     const {email, password} =req.body;
     
-    // users=[
-    //    [ "amit@gmail.com" ,"qwe"],
-    //    [ "maharjan@gmail.com", "asd"]
-    // ]
     const output=await sql.query(`select email,password from logins` );
+    console.log("after sql");
+    // let obj="";
+    //     console.log (output);
+    //     obj=output[0][0];
+    //     console.log(obj)
     // console.log(output.length);
     // console.log(output);
-    const salt= await hasher.createSalt();
-        const hashed=await hasher.computeHash(password.toString(),salt);
+    // const salt= await hasher.createSalt();
+    //     const hashed=await hasher.computeHash(password.toString(),salt);
+    //     console.log(hashed);
+        // const credentials=Object.values(output);
+        // console.log(credentials);
+        // console.log(credentials.Object.values.email[0]);
+// var result = Object.keys(output).map((key) => [Number(key), output[key]]);
+// console.log(result);
+// const result2=Object.values(result)
+// console.log(result2);
+// const output=await sql.query("select * from logins");
+//         // console.log(output);
+        // for(i=0;i<output.length;i++){
+        //     obj=output[0][i].email;
+        //     obj2=output[0][i].password;
+        //     // console.log(obj)
+        //     console.log(obj2)
+        //     const a=await hasher.comparePassword(password,obj2);
+        //     console.log(a);
+        // }
       for(i=0;i<output.length;i++){
-        const emailCheck=output[i][i].email;
-        console.log(emailCheck)
                 if(test==0){
-                // console.log(users[i][0])
-                // console.log(users[i][1])
-                console.log("here")
-                    if(email==emailCheck){
-                        let hpassword=output[i][i].password;
-                        console.log(hpassword)
-                        const hashPassword=hasher.comparePassword(hashed,hpassword);
-                        if(hashPassword==true){
+                    if(email==output[0][i].email){
+                        console.log("inside email")
+                        const qwe=output[0][i].password;
+                        const hashPassword=await hasher.comparePassword(password,qwe);
+                        // console.log(output[0][i].password)
+                        if(hashPassword){
                             test=2;
                             console.log("welcome")
                         }else{

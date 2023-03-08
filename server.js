@@ -17,11 +17,11 @@ const mysqlHelper=require("./validation/mysqlHelper");
 const routes = require("./routes/routes")
 app.use("/api",routes)
 
-app.get("/super-secure-resource", (req, res) => {
-    res
-      .status(401)
-      .json({ message: "You need to be logged in to access this resource" });
-  });
+// app.get("/super-secure-resource", (req, res) => {
+//     res
+//       .status(401)
+//       .json({ message: "You need to be logged in to access this resource" });
+//   });
 
 // app.post('/sign', (req,res)=>{
 //     console.log("here")

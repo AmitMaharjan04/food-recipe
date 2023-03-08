@@ -1,9 +1,8 @@
 (() => {
     module.exports = {
-        userSignup: require('./signup'),
+        userCreate: require('./create'),
         // userSearch: require('./search'),
-        userLogin: require('./login'),
-        userCreate: require('./create')
+        // userLogin: require('./login')
         // user_update: require('./update'),
 
     }

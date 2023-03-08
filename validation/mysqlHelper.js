@@ -23,6 +23,8 @@ const mysql = require('mysql2/promise');
         try{
             // console.log(dbClient.host)
             let res=await dbClient.query(query,fields);
+            // console.log(query);
+            // console.log(fields);
             return res;
         }catch(error){
             throw error;
