@@ -1,4 +1,5 @@
 const emailCheck=new RegExp(/^([a-zA-Z0-9\.\_])+@([a-zA-Z0-9])+.com$/);
+const jwt = require("jsonwebtoken");
 
 const newAccount= async (req) =>{
     const {email,password}=req.body;
@@ -17,35 +18,50 @@ const newAccount= async (req) =>{
         // }
         return valid;
 };
-const existingAccount= async(req)=>{
+const existingAccount= async(req,res)=>{
     const hasher=require('../validation/hashing');
     const sql=require('./mysqlHelper');
     let test=0;
     const {email, password} =req.body;
     
     const output=await sql.query(`select email,password from logins` );
-    console.log("after sql");
+    // console.log("after sql");
     
 // 
       for(i=0;i<output.length;i++){
                 if(test==0){
-                    console.log(output[0][i].email);
+                    // console.log(output[0][i].email);
                     if(email==output[0][i].email){
-                        console.log("inside email")
-                        
+                        // console.log("inside email")
                         const qwe=output[0][i].password;
                         const hashPassword=await hasher.comparePassword(password,qwe);
                         // console.log(output[0][i].password)
                         if(hashPassword){
                             test=2;
-                            console.log("welcome")
+                            // if (req.session && req.session.user) {
+                            //     res.locals.userEmail = JSON.stringify(req.session.user.email);
+                            //   }
+                            //   module.exports = res.locals.userEmail;
+                            // to get the email
+                            // module.exports.email=output[0][i].email;
+                            // module.exports.email=email;
+                            // console.log("welcome")
+                            const token = jwt.sign({id:output[0][i].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+                       
+                        return res.status(200).send({
+                            msg: 'Logged in!',
+                            token,
+                            user: output[0][i]
+                        });
+                        
                         }else{
-                            console.log("wrong hash")
+                            // console.log("wrong hash")
                         }
                     }
                 }
             }
         return test;
+        
 };
 
 exports.newAccount = newAccount;

@@ -1,17 +1,17 @@
 const login=require("../../../validation/emailValidation");
 const sqlHelper=require("../../../validation/mysqlHelper");
+const jwt = require("jsonwebtoken");
+
 const express = require("express");
     const router = express.Router();
-    const loggedUserController = require("../loggeduser/index");
 (()=>{
     module.exports= async (req,res,next)=>{
-        let test=await login.existingAccount(req);
-        if(test==0){
-            console.log("Incorrect email or password")
-        }else {
-            // await res.redirect('http://127.0.0.1:3000/api/user/create');
-            console.log("loggedin");
-            
-        }
+        const { email }= req.body;
+        await login.existingAccount(req,res);
+        // if(test==0){
+        //     console.log("Incorrect email or password")
+        // }else {
+        //    res.status(200).send(`Successful login. Welcome `)
+        // }
     }
 })()
