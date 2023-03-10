@@ -46,7 +46,9 @@ const existingAccount= async(req,res)=>{
                             // module.exports.email=output[0][i].email;
                             // module.exports.email=email;
                             // console.log("welcome")
-                            const token = jwt.sign({id:output[0][i].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+                            // const token = jwt.sign({id:output[0][i].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+                            
+                            const token = jwt.sign({email},'the-super-strong-secrect',{ expiresIn: '1h' });
                        
                         return res.status(200).send({
                             msg: 'Logged in!',

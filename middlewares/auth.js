@@ -11,11 +11,37 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, 'the-super-strong-secrect');
-    req.email = decoded;
+    
+    console.log(decoded);
+    req.email = decoded.email;
   } catch (err) {
     return res.status(401).send("Invalid Token");
   }
   return next();
 };
 
+const checkUser = (req,res,next) =>{
+  const token =
+    req.body.token || req.query.token || req.headers["x-access-token"];
+    if (!token) {
+      return res.status(403).send("A token is required for authentication");
+    }
+    try {
+      const decoded = jwt.verify(token, 'the-super-strong-secrect', (err,decodedToken) =>{
+        if(err){
+          console.log(err.message);
+          next();
+        }else{
+          console.log(decodedToken);
+          next();
+        }
+      });
+      
+      console.log(decoded);
+      req.email = decoded;
+    } catch (err) {
+      return res.status(401).send("Invalid Token");
+    }
+    return next();
+}
 module.exports = verifyToken;
