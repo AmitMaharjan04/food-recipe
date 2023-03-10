@@ -1,21 +1,53 @@
 const emailCheck=new RegExp(/^([a-zA-Z0-9\.\_])+@([a-zA-Z0-9])+.com$/);
 const jwt = require("jsonwebtoken");
 
-const newAccount= async (req) =>{
-    const {email,password}=req.body;
+const newAccount= async (req,res) =>{
+    const sql=require('./mysqlHelper');
+    const {firstname,lastname,email,password}=req.body;
     
-    const pass=new RegExp(/^[a-zA-Z0-9]{6,10}$/);
-    // const phoneCheck=new RegExp(/^[0-9]{10}$/);
-    let valid=false;
-        if(emailCheck.test(email) ==true){
-        valid=true;
+    const pass=new RegExp(/^[a-zA-Z0-9]{5,20}$/);
+    let valid=true;
+    // if (/\s/g.test(firstname)) {
+    //     // valid=1;
+    //     return res.status(400).json({ error: 'FirstName should not contain any blank spaces.' });    
+    // }
+    // if (/\s/.test(lastname)) {
+    //     // valid=2;
+    //     return res.status(400).json({ error: 'LastName should not contain any blank spaces.' });    
+    // }
+    // if (/\s/.test(email)) {
+    //     // valid=3;
+    //     return res.status(400).json({ error: 'Email should not contain any blank spaces.' });    
+    // }
+    // if (/\s/.test(password)) {
+    //         // valid=4;
+    //     return res.status(400).json({ error: 'Password should not contain any blank spaces.' });    
+    // }
+    if (firstname.trim()=="" || lastname.trim()=="" || email.trim()=="" || password.trim()=="") {
+        valid=false;
+        return res.status(400).json({ error: 'Names , Email and Password all are required' });
+      }
+        if(emailCheck.test(email) !=true){
+            // valid=5;
+            valid=false;
+            return res.status(400).json({ error: 'Please enter valid email format.' });
         }
-        if(pass.test(password)==true){
-        valid=true;
+        if(pass.test(password)!=true){
+            // valid=6;
+            valid=false;
+            return res.status(400).json({ error: 'Password should contain 5-20 alphabets.' });
         }
-        // if(phoneCheck.test(phone)==true){
-        // valid=true;
-        // }
+
+        const output=await sql.query(`select * from logins` );
+        // console.log(output[0].email)
+        for(i=0;i<output[0].length;i++){
+                if(email==output[0][i].email){
+                    // valid=7;
+                    valid=false;
+                    return res.status(400).json({ error: 'Email already exists.Please enter new email address.' });    
+                    }
+                
+            }
         return valid;
 };
 const existingAccount= async(req,res)=>{
@@ -24,11 +56,11 @@ const existingAccount= async(req,res)=>{
     let test=0;
     const {email, password} =req.body;
     
-    const output=await sql.query(`select email,password from logins` );
+    const output=await sql.query(`select * from logins` );
     // console.log("after sql");
-    
+    // console.log(output[0].length)
 // 
-      for(i=0;i<output.length;i++){
+      for(i=0;i<output[0].length;i++){
                 if(test==0){
                     // console.log(output[0][i].email);
                     if(email==output[0][i].email){
@@ -38,13 +70,6 @@ const existingAccount= async(req,res)=>{
                         // console.log(output[0][i].password)
                         if(hashPassword){
                             test=2;
-                            // if (req.session && req.session.user) {
-                            //     res.locals.userEmail = JSON.stringify(req.session.user.email);
-                            //   }
-                            //   module.exports = res.locals.userEmail;
-                            // to get the email
-                            // module.exports.email=output[0][i].email;
-                            // module.exports.email=email;
                             // console.log("welcome")
                             // const token = jwt.sign({id:output[0][i].id},'the-super-strong-secrect',{ expiresIn: '1h' });
                             

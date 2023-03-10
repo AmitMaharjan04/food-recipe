@@ -7,10 +7,12 @@ const express = require("express");
 (()=>{
     module.exports= async (req,res,next)=>{
         const { email }= req.body;
-        await login.existingAccount(req,res);
-        // if(test==0){
-        //     console.log("Incorrect email or password")
-        // }else {
+        const test=await login.existingAccount(req,res);
+        if(test==0){
+            res.status(400).json({
+                message: "Failure to login",
+            });
+        }
         //    res.status(200).send(`Successful login. Welcome `)
         // }
     }

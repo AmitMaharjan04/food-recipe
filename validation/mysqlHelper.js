@@ -26,6 +26,7 @@ const mysql = require('mysql2/promise');
         try{
             // console.log(dbClient.host)
             let res=await dbClient.query(query,fields);
+            // console.log(res);
             // console.log(query);
             // console.log(fields);
             return res;
@@ -33,5 +34,18 @@ const mysql = require('mysql2/promise');
             throw error;
     }
     }
+    // mysqlHelper.queries = async(query, fields, metaData)=>{
+    //     let res=await dbClient.query(query, (err, rows, fields) => {
+    //         if (err) {
+    //           console.error('Error executing query:', err);
+    //           return;
+    //         }
+    //         console.log('Result:', rows);
+        
+    //         // Send the rows as the response
+    //         res.send(rows);
+    //       });
+    //       return res;
+    // }
 
 })(module.exports);

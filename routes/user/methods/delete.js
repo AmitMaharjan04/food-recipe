@@ -3,8 +3,8 @@ const deleteRecipe=require('../sql/deleteRecipe');
 (()=>{
     module.exports= async (req,res,next)=>{
         const { name } =req.body;
-        console.log("in here");
-           const created=deleteRecipe(name);
+        const email=req.email;
+           const created=deleteRecipe(name,email);
            if(Object.keys(created).length === 0){
             res.status(200).send("Recipe deleted successfully ");
            }

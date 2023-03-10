@@ -5,7 +5,7 @@ const createRecipe=require('../sql/createRecipe');
        
         const { name , description} =req.body;
         const email=req.email;
-        console.log(email);
+        // console.log(email);
            const created=createRecipe(name,description,email);
            if(Object.keys(created).length === 0){
             res.status(200).send("Recipe created successfully ");

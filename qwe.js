@@ -4,10 +4,19 @@
 // console.log(a);
 // const d = new Date();
 // console.log(d);
-module.exports.variableName = "variableValue";
-global.my_name_is="amit";
+// module.exports.variableName = "variableValue";
+// global.my_name_is="amit";
 // let date_time = new Date();
-
+fname="       am it  ";
+function test(fname){
+if(fname.trim()== ""){ console.log("name is empty")} ;       }
+test(fname);
+console.log(fname.trim());
+console.log(fname);
+console.log(!/\s/.test(fname)) 
+// if (/\s/.test(fname)) {
+//     console.log("name is not empty")  
+// }
 // // get current date
 // // adjust 0 before single digit date
 // let date = ("0" + date_time.getDate()).slice(-2);
