@@ -7,22 +7,7 @@ const newAccount= async (req,res) =>{
     
     const pass=new RegExp(/^[a-zA-Z0-9]{5,20}$/);
     let valid=true;
-    // if (/\s/g.test(firstname)) {
-    //     // valid=1;
-    //     return res.status(400).json({ error: 'FirstName should not contain any blank spaces.' });    
-    // }
-    // if (/\s/.test(lastname)) {
-    //     // valid=2;
-    //     return res.status(400).json({ error: 'LastName should not contain any blank spaces.' });    
-    // }
-    // if (/\s/.test(email)) {
-    //     // valid=3;
-    //     return res.status(400).json({ error: 'Email should not contain any blank spaces.' });    
-    // }
-    // if (/\s/.test(password)) {
-    //         // valid=4;
-    //     return res.status(400).json({ error: 'Password should not contain any blank spaces.' });    
-    // }
+   
     if (firstname.trim()=="" || lastname.trim()=="" || email.trim()=="" || password.trim()=="") {
         valid=false;
         return res.status(400).json({ error: 'Names , Email and Password all are required' });

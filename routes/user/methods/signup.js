@@ -6,7 +6,6 @@ const moment = require('moment');
 
 (()=>{
     module.exports = async(req,res)=>{
-      //  emailValidation(req);
       let hashed= "";
         let {firstname,lastname,email,password} = req.body
         let test= await emailValidation.newAccount(req,res);

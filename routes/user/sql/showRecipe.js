@@ -2,10 +2,10 @@ const sql=require('../../../validation/mysqlHelper');
 
 (()=>{
     module.exports = async(req,res,email)=>{
-        console.log(email);
+        // console.log(email);
         const output=await sql.query(`select * from recipes where email='${email}'` );
-        console.log(output[0].length);
-        console.log(typeof(output) );
+        // console.log(output[0].length);
+        // console.log(typeof(output) );
         // res.send(outputname);
         // console.log(output);
     // console.log(output[0][0]);
